@@ -1,0 +1,314 @@
+\doxysection{s21\+::Model\+Calc Class Reference}
+\hypertarget{classs21_1_1_model_calc}{}\label{classs21_1_1_model_calc}\index{s21::ModelCalc@{s21::ModelCalc}}
+
+
+{\ttfamily \#include $<$s21\+\_\+model\+\_\+calc.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classs21_1_1_model_calc_a493fc7f883c942805534656268beb79b}{string\+\_\+validator}} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em функция по проверки строки на валидность \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classs21_1_1_model_calc_a2310bf7a836f12db4798ab01cab64069}{check\+\_\+function}} (std\+::string str, size\+\_\+t i)
+\begin{DoxyCompactList}\small\item\em проверка функции, трансформация строки \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{classs21_1_1_model_calc_a1c41f28b0a2046049d9aa2a4fc3ff650}{str\+\_\+to\+\_\+correct\+\_\+str}} (std\+::string \&str, size\+\_\+t i)
+\begin{DoxyCompactList}\small\item\em трансормация строки в нормальное значение \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classs21_1_1_model_calc_a1234d822861489714bcfb5db264656e9}{prepare\+\_\+str}} (std\+::string str1, std\+::string \&str2)
+\begin{DoxyCompactList}\small\item\em подготовка строки \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classs21_1_1_model_calc_a72c47c376023fb8510d803eeef79a47b}{parser}} (std\+::string stroka, double x, std\+::stack$<$ \mbox{\hyperlink{structs21_1_1_nodevalue}{s21\+::\+Nodevalue}} $>$ \&stack\+\_\+)
+\begin{DoxyCompactList}\small\item\em парсер \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classs21_1_1_model_calc_a66c54f469ce94d4cf591c4beae1e1ab5}{polish}} (std\+::stack$<$ \mbox{\hyperlink{structs21_1_1_nodevalue}{Nodevalue}} $>$ \&stack\+\_\+)
+\begin{DoxyCompactList}\small\item\em перевод в польскую нотацию \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classs21_1_1_model_calc_aad6aa2a1d1087ce64061b98147fbc6d5}{calculator}} (std\+::string str, double \texorpdfstring{$\ast$}{*}result\+\_\+new, double x)
+\begin{DoxyCompactList}\small\item\em калькулятор \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classs21_1_1_model_calc_ad770787ebff458778c4a9034da6204da}{s21\+\_\+credit\+\_\+calc\+\_\+anu}} (double sum, double persent, int time, double \texorpdfstring{$\ast$}{*}result)
+\begin{DoxyCompactList}\small\item\em аннуитетный кредитный калькулятор \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classs21_1_1_model_calc_a5379970edbc25d913a58e5d68446f906}{s21\+\_\+credit\+\_\+calc\+\_\+diff}} (double sum, double persent, int time, double \texorpdfstring{$\ast$}{*}result, double \texorpdfstring{$\ast$}{*}result2, double \texorpdfstring{$\ast$}{*}result\+\_\+persent)
+\begin{DoxyCompactList}\small\item\em дифферциальный калькулятор \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classs21_1_1_model_calc_a95fdf43c5034127159e4715ad9feb8d3}{s21\+\_\+vklad\+\_\+calc}} (double sum, int time, double persent, double \texorpdfstring{$\ast$}{*}result, double \texorpdfstring{$\ast$}{*}nalog\+\_\+na\+\_\+vklad, double \texorpdfstring{$\ast$}{*}persent\+\_\+na\+\_\+vkald)
+\item 
+\mbox{\hyperlink{classs21_1_1_model_calc_a94478ad2a426152199e1410fb6f1f0f5}{Model\+Calc}} ()
+\item 
+\mbox{\hyperlink{classs21_1_1_model_calc_ad6b662f5a7b49e0b54b9b5b2dde64f9a}{\texorpdfstring{$\sim$}{\string~}\+Model\+Calc}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classs21_1_1_model_calc_a7ddccbdac72338bdec0388651df27b58}{value\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{s21__model__calc_8h_source_l00047}{47}} of file \mbox{\hyperlink{s21__model__calc_8h_source}{s21\+\_\+model\+\_\+calc.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classs21_1_1_model_calc_a94478ad2a426152199e1410fb6f1f0f5}\label{classs21_1_1_model_calc_a94478ad2a426152199e1410fb6f1f0f5} 
+\index{s21::ModelCalc@{s21::ModelCalc}!ModelCalc@{ModelCalc}}
+\index{ModelCalc@{ModelCalc}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{ModelCalc()}{ModelCalc()}}
+{\footnotesize\ttfamily s21\+::\+Model\+Calc\+::\+Model\+Calc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{s21__model__calc_8h_source_l00065}{65}} of file \mbox{\hyperlink{s21__model__calc_8h_source}{s21\+\_\+model\+\_\+calc.\+h}}.
+
+\Hypertarget{classs21_1_1_model_calc_ad6b662f5a7b49e0b54b9b5b2dde64f9a}\label{classs21_1_1_model_calc_ad6b662f5a7b49e0b54b9b5b2dde64f9a} 
+\index{s21::ModelCalc@{s21::ModelCalc}!````~ModelCalc@{\texorpdfstring{$\sim$}{\string~}ModelCalc}}
+\index{````~ModelCalc@{\texorpdfstring{$\sim$}{\string~}ModelCalc}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ModelCalc()}{\string~ModelCalc()}}
+{\footnotesize\ttfamily s21\+::\+Model\+Calc\+::\texorpdfstring{$\sim$}{\string~}\+Model\+Calc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{s21__model__calc_8h_source_l00066}{66}} of file \mbox{\hyperlink{s21__model__calc_8h_source}{s21\+\_\+model\+\_\+calc.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classs21_1_1_model_calc_aad6aa2a1d1087ce64061b98147fbc6d5}\label{classs21_1_1_model_calc_aad6aa2a1d1087ce64061b98147fbc6d5} 
+\index{s21::ModelCalc@{s21::ModelCalc}!calculator@{calculator}}
+\index{calculator@{calculator}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{calculator()}{calculator()}}
+{\footnotesize\ttfamily void s21\+::\+Model\+Calc\+::calculator (\begin{DoxyParamCaption}\item[{std\+::string}]{str,  }\item[{double \texorpdfstring{$\ast$}{*}}]{result\+\_\+new,  }\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+калькулятор 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & строка \\
+\hline
+{\em result\+\_\+new} & результат вычислений \\
+\hline
+{\em x} & икс \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+~\newline
+ 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{s21__model__calc_8cpp_source_l00353}{353}} of file \mbox{\hyperlink{s21__model__calc_8cpp_source}{s21\+\_\+model\+\_\+calc.\+cpp}}.
+
+\Hypertarget{classs21_1_1_model_calc_a2310bf7a836f12db4798ab01cab64069}\label{classs21_1_1_model_calc_a2310bf7a836f12db4798ab01cab64069} 
+\index{s21::ModelCalc@{s21::ModelCalc}!check\_function@{check\_function}}
+\index{check\_function@{check\_function}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{check\_function()}{check\_function()}}
+{\footnotesize\ttfamily int s21\+::\+Model\+Calc\+::check\+\_\+function (\begin{DoxyParamCaption}\item[{std\+::string}]{str,  }\item[{size\+\_\+t}]{i }\end{DoxyParamCaption})}
+
+
+
+проверка функции, трансформация строки 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & строка \\
+\hline
+{\em i} & из цикла фор текущая позиция \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+возвращает значение i 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{s21__model__calc_8cpp_source_l00039}{39}} of file \mbox{\hyperlink{s21__model__calc_8cpp_source}{s21\+\_\+model\+\_\+calc.\+cpp}}.
+
+\Hypertarget{classs21_1_1_model_calc_a72c47c376023fb8510d803eeef79a47b}\label{classs21_1_1_model_calc_a72c47c376023fb8510d803eeef79a47b} 
+\index{s21::ModelCalc@{s21::ModelCalc}!parser@{parser}}
+\index{parser@{parser}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{parser()}{parser()}}
+{\footnotesize\ttfamily void s21\+::\+Model\+Calc\+::parser (\begin{DoxyParamCaption}\item[{std\+::string}]{stroka,  }\item[{double}]{x,  }\item[{std\+::stack$<$ \mbox{\hyperlink{structs21_1_1_nodevalue}{s21\+::\+Nodevalue}} $>$ \&}]{stack\+\_\+ }\end{DoxyParamCaption})}
+
+
+
+парсер 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stroka} & строка \\
+\hline
+{\em x} & обычный х \\
+\hline
+{\em stack\+\_\+} & стэк \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{s21__model__calc_8cpp_source_l00212}{212}} of file \mbox{\hyperlink{s21__model__calc_8cpp_source}{s21\+\_\+model\+\_\+calc.\+cpp}}.
+
+\Hypertarget{classs21_1_1_model_calc_a66c54f469ce94d4cf591c4beae1e1ab5}\label{classs21_1_1_model_calc_a66c54f469ce94d4cf591c4beae1e1ab5} 
+\index{s21::ModelCalc@{s21::ModelCalc}!polish@{polish}}
+\index{polish@{polish}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{polish()}{polish()}}
+{\footnotesize\ttfamily void s21\+::\+Model\+Calc\+::polish (\begin{DoxyParamCaption}\item[{std\+::stack$<$ \mbox{\hyperlink{structs21_1_1_nodevalue}{Nodevalue}} $>$ \&}]{stack\+\_\+ }\end{DoxyParamCaption})}
+
+
+
+перевод в польскую нотацию 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stack\+\_\+} & стэк \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{s21__model__calc_8cpp_source_l00290}{290}} of file \mbox{\hyperlink{s21__model__calc_8cpp_source}{s21\+\_\+model\+\_\+calc.\+cpp}}.
+
+\Hypertarget{classs21_1_1_model_calc_a1234d822861489714bcfb5db264656e9}\label{classs21_1_1_model_calc_a1234d822861489714bcfb5db264656e9} 
+\index{s21::ModelCalc@{s21::ModelCalc}!prepare\_str@{prepare\_str}}
+\index{prepare\_str@{prepare\_str}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{prepare\_str()}{prepare\_str()}}
+{\footnotesize\ttfamily void s21\+::\+Model\+Calc\+::prepare\+\_\+str (\begin{DoxyParamCaption}\item[{std\+::string}]{str1,  }\item[{std\+::string \&}]{str2 }\end{DoxyParamCaption})}
+
+
+
+подготовка строки 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str1} & текущая строка \\
+\hline
+{\em str2} & строка после преобразования \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{s21__model__calc_8cpp_source_l00185}{185}} of file \mbox{\hyperlink{s21__model__calc_8cpp_source}{s21\+\_\+model\+\_\+calc.\+cpp}}.
+
+\Hypertarget{classs21_1_1_model_calc_ad770787ebff458778c4a9034da6204da}\label{classs21_1_1_model_calc_ad770787ebff458778c4a9034da6204da} 
+\index{s21::ModelCalc@{s21::ModelCalc}!s21\_credit\_calc\_anu@{s21\_credit\_calc\_anu}}
+\index{s21\_credit\_calc\_anu@{s21\_credit\_calc\_anu}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{s21\_credit\_calc\_anu()}{s21\_credit\_calc\_anu()}}
+{\footnotesize\ttfamily void s21\+::\+Model\+Calc\+::s21\+\_\+credit\+\_\+calc\+\_\+anu (\begin{DoxyParamCaption}\item[{double}]{sum,  }\item[{double}]{persent,  }\item[{int}]{time,  }\item[{double \texorpdfstring{$\ast$}{*}}]{result }\end{DoxyParamCaption})}
+
+
+
+аннуитетный кредитный калькулятор 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sum} & сумма кредита \\
+\hline
+{\em persent} & процент кредита \\
+\hline
+{\em time} & время кредита \\
+\hline
+{\em result} & возвращаемое значени суммы выплаты \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{s21__credit__cacl_8cpp_source_l00009}{9}} of file \mbox{\hyperlink{s21__credit__cacl_8cpp_source}{s21\+\_\+credit\+\_\+cacl.\+cpp}}.
+
+\Hypertarget{classs21_1_1_model_calc_a5379970edbc25d913a58e5d68446f906}\label{classs21_1_1_model_calc_a5379970edbc25d913a58e5d68446f906} 
+\index{s21::ModelCalc@{s21::ModelCalc}!s21\_credit\_calc\_diff@{s21\_credit\_calc\_diff}}
+\index{s21\_credit\_calc\_diff@{s21\_credit\_calc\_diff}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{s21\_credit\_calc\_diff()}{s21\_credit\_calc\_diff()}}
+{\footnotesize\ttfamily void s21\+::\+Model\+Calc\+::s21\+\_\+credit\+\_\+calc\+\_\+diff (\begin{DoxyParamCaption}\item[{double}]{sum,  }\item[{double}]{persent,  }\item[{int}]{time,  }\item[{double \texorpdfstring{$\ast$}{*}}]{result,  }\item[{double \texorpdfstring{$\ast$}{*}}]{result2,  }\item[{double \texorpdfstring{$\ast$}{*}}]{result\+\_\+persent }\end{DoxyParamCaption})}
+
+
+
+дифферциальный калькулятор 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sum} & сумма кредита \\
+\hline
+{\em persent} & процент кредита \\
+\hline
+{\em time} & время \\
+\hline
+{\em result} & возвращаемое значение суммы \\
+\hline
+{\em result2} & результат функции два аннуитетный процента \\
+\hline
+{\em result\+\_\+persent} & суммарный процент ~\newline
+ \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{s21__credit__cacl_8cpp_source_l00023}{23}} of file \mbox{\hyperlink{s21__credit__cacl_8cpp_source}{s21\+\_\+credit\+\_\+cacl.\+cpp}}.
+
+\Hypertarget{classs21_1_1_model_calc_a95fdf43c5034127159e4715ad9feb8d3}\label{classs21_1_1_model_calc_a95fdf43c5034127159e4715ad9feb8d3} 
+\index{s21::ModelCalc@{s21::ModelCalc}!s21\_vklad\_calc@{s21\_vklad\_calc}}
+\index{s21\_vklad\_calc@{s21\_vklad\_calc}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{s21\_vklad\_calc()}{s21\_vklad\_calc()}}
+{\footnotesize\ttfamily void s21\+::\+Model\+Calc\+::s21\+\_\+vklad\+\_\+calc (\begin{DoxyParamCaption}\item[{double}]{sum,  }\item[{int}]{time,  }\item[{double}]{persent,  }\item[{double \texorpdfstring{$\ast$}{*}}]{result,  }\item[{double \texorpdfstring{$\ast$}{*}}]{nalog\+\_\+na\+\_\+vklad,  }\item[{double \texorpdfstring{$\ast$}{*}}]{persent\+\_\+na\+\_\+vkald }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{s21__vklad__cacl_8cpp_source_l00004}{4}} of file \mbox{\hyperlink{s21__vklad__cacl_8cpp_source}{s21\+\_\+vklad\+\_\+cacl.\+cpp}}.
+
+\Hypertarget{classs21_1_1_model_calc_a1c41f28b0a2046049d9aa2a4fc3ff650}\label{classs21_1_1_model_calc_a1c41f28b0a2046049d9aa2a4fc3ff650} 
+\index{s21::ModelCalc@{s21::ModelCalc}!str\_to\_correct\_str@{str\_to\_correct\_str}}
+\index{str\_to\_correct\_str@{str\_to\_correct\_str}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{str\_to\_correct\_str()}{str\_to\_correct\_str()}}
+{\footnotesize\ttfamily char s21\+::\+Model\+Calc\+::str\+\_\+to\+\_\+correct\+\_\+str (\begin{DoxyParamCaption}\item[{std\+::string \&}]{str,  }\item[{size\+\_\+t}]{i }\end{DoxyParamCaption})}
+
+
+
+трансормация строки в нормальное значение 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & строка \\
+\hline
+{\em i} & позиция в строке \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+возвращаем одну чар которая заменяет 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{s21__model__calc_8cpp_source_l00111}{111}} of file \mbox{\hyperlink{s21__model__calc_8cpp_source}{s21\+\_\+model\+\_\+calc.\+cpp}}.
+
+\Hypertarget{classs21_1_1_model_calc_a493fc7f883c942805534656268beb79b}\label{classs21_1_1_model_calc_a493fc7f883c942805534656268beb79b} 
+\index{s21::ModelCalc@{s21::ModelCalc}!string\_validator@{string\_validator}}
+\index{string\_validator@{string\_validator}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{string\_validator()}{string\_validator()}}
+{\footnotesize\ttfamily void s21\+::\+Model\+Calc\+::string\+\_\+validator (\begin{DoxyParamCaption}\item[{std\+::string}]{str }\end{DoxyParamCaption})}
+
+
+
+функция по проверки строки на валидность 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & принимаемое значение строка \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{s21__model__calc_8cpp_source_l00005}{5}} of file \mbox{\hyperlink{s21__model__calc_8cpp_source}{s21\+\_\+model\+\_\+calc.\+cpp}}.
+
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{classs21_1_1_model_calc_a7ddccbdac72338bdec0388651df27b58}\label{classs21_1_1_model_calc_a7ddccbdac72338bdec0388651df27b58} 
+\index{s21::ModelCalc@{s21::ModelCalc}!value\_@{value\_}}
+\index{value\_@{value\_}!s21::ModelCalc@{s21::ModelCalc}}
+\doxysubsubsection{\texorpdfstring{value\_}{value\_}}
+{\footnotesize\ttfamily double s21\+::\+Model\+Calc\+::value\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{s21__model__calc_8h_source_l00050}{50}} of file \mbox{\hyperlink{s21__model__calc_8h_source}{s21\+\_\+model\+\_\+calc.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Model/\mbox{\hyperlink{s21__model__calc_8h}{s21\+\_\+model\+\_\+calc.\+h}}\item 
+Model/\mbox{\hyperlink{s21__credit__cacl_8cpp}{s21\+\_\+credit\+\_\+cacl.\+cpp}}\item 
+Model/\mbox{\hyperlink{s21__model__calc_8cpp}{s21\+\_\+model\+\_\+calc.\+cpp}}\item 
+Model/\mbox{\hyperlink{s21__vklad__cacl_8cpp}{s21\+\_\+vklad\+\_\+cacl.\+cpp}}\end{DoxyCompactItemize}

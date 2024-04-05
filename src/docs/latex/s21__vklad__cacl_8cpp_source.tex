@@ -1,0 +1,19 @@
+\doxysection{s21\+\_\+vklad\+\_\+cacl.\+cpp}
+\hypertarget{s21__vklad__cacl_8cpp_source}{}\label{s21__vklad__cacl_8cpp_source}\index{Model/s21\_vklad\_cacl.cpp@{Model/s21\_vklad\_cacl.cpp}}
+\mbox{\hyperlink{s21__vklad__cacl_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{s21__model__calc_8h}{s21\_model\_calc.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00004}\mbox{\hyperlink{classs21_1_1_model_calc_a95fdf43c5034127159e4715ad9feb8d3}{00004}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classs21_1_1_model_calc_a95fdf43c5034127159e4715ad9feb8d3}{s21::ModelCalc::s21\_vklad\_calc}}(\textcolor{keywordtype}{double}\ sum,\ \textcolor{keywordtype}{int}\ time,\ \textcolor{keywordtype}{double}\ persent,\ \textcolor{keywordtype}{double}\ *result,}
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00005}00005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *nalog\_na\_vklad,\ \textcolor{keywordtype}{double}\ *persent\_na\_vkald)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00006}00006\ \ \ *result\ =\ sum\ +\ (sum\ *\ persent\ /\ 1200\ *\ time);}
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00007}00007\ \ \ \textcolor{keywordflow}{if}\ (persent\ >\ 18.)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00008}00008\ \ \ \ \ *nalog\_na\_vklad\ =\ (*result\ -\/\ sum)\ *\ 0.35;}
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00009}00009\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00010}00010\ \ \ \ \ *nalog\_na\_vklad\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00011}00011\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00012}00012\ \ \ *persent\_na\_vkald\ =\ *result\ -\/\ sum;}
+\DoxyCodeLine{\Hypertarget{s21__vklad__cacl_8cpp_source_l00013}00013\ \}}
+
+\end{DoxyCode}

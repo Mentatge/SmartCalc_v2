@@ -1,0 +1,509 @@
+\doxysection{s21\+\_\+model\+\_\+calc.\+cpp}
+\hypertarget{s21__model__calc_8cpp_source}{}\label{s21__model__calc_8cpp_source}\index{Model/s21\_model\_calc.cpp@{Model/s21\_model\_calc.cpp}}
+\mbox{\hyperlink{s21__model__calc_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{s21__model__calc_8h}{s21\_model\_calc.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00002}00002\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00003}00003\ \textcolor{comment}{///\ @brief\ функция\ по\ проверки\ строки\ на\ валидность}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00004}00004\ \textcolor{comment}{///\ @param\ str\ принимаемое\ значение\ строка}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00005}\mbox{\hyperlink{classs21_1_1_model_calc_a493fc7f883c942805534656268beb79b}{00005}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{classs21_1_1_model_calc_a493fc7f883c942805534656268beb79b}{s21::ModelCalc::string\_validator}}(std::string\ str)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00006}00006\ \ \ \textcolor{keywordtype}{int}\ count\_open\_bracket\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00007}00007\ \ \ \textcolor{keywordtype}{int}\ count\_close\_braket=0;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00008}00008\ \ \ \textcolor{keywordtype}{int}\ error\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00009}00009\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ str.length();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'('})\ ++count\_open\_bracket;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00011}00011\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{')'})\ ++count\_close\_braket;\ \ }
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::strchr(\textcolor{stringliteral}{"{}+-\/*/"{}},\ str[i]))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00013}00013\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((!(std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 1])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 1]))\ ||}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'\(\backslash\)0'})))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}error\ oper\_let"{}});\ \textcolor{comment}{//\ или\ прописать\ гдет\ через\ энам\ ошибки\ и\ вызывать\ их\ тут??}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00016}00016\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00017}00017\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'.'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00019}00019\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!std::strchr(\mbox{\hyperlink{s21__model__calc_8h_aaf0952059602752258dccaa015d7b54a}{NUM}},\ str[i\ +\ 1])\ ||\ str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'\(\backslash\)0'})\ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}error\ ."{}});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00020}00020\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i])\ \&\&\ !error)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00022}00022\ \ \ \ \ \ \ error\ =\ \mbox{\hyperlink{classs21_1_1_model_calc_a2310bf7a836f12db4798ab01cab64069}{check\_function}}(str,\ i);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00023}00023\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!error)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}error\ with\ check\_function"{}});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00025}00025\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00026}00026\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{if}\ (error\ !=\ 0)\ error-\/-\/;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00029}00029\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'('})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00030}00030\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::strchr(\textcolor{stringliteral}{"{}+*/)"{}},\ str[i\ +\ 1]))\ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}error\ (\ with\ +*/)"{}});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00031}00031\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00032}00032\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00033}00033\ \ \ \textcolor{keywordflow}{if}\ (count\_open\_bracket\ -\/\ count\_close\_braket\ !=0)\ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}error\ of\ count\ (\ and\ )"{}});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00034}00034\ \}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00035}00035\ \textcolor{comment}{///\ @brief\ проверка\ функции,\ трансформация\ строки}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00036}00036\ \textcolor{comment}{///\ @param\ str\ строка}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00037}00037\ \textcolor{comment}{///\ @param\ i\ из\ цикла\ фор\ текущая\ позиция}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00038}00038\ \textcolor{comment}{///\ @return\ возвращает\ значение\ i}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00039}\mbox{\hyperlink{classs21_1_1_model_calc_a2310bf7a836f12db4798ab01cab64069}{00039}}\ \textcolor{comment}{}\textcolor{keywordtype}{int}\ \mbox{\hyperlink{classs21_1_1_model_calc_a2310bf7a836f12db4798ab01cab64069}{s21::ModelCalc::check\_function}}(std::string\ str,\ \textcolor{keywordtype}{size\_t}\ i)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00040}00040\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'c'}\ \&\&\ (i\ +\ 4\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00041}00041\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'o'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'s'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 4])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 4])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00043}00043\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 3;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00044}00044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00045}00045\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00046}00046\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'s'}\ \&\&\ (i\ +\ 4\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'i'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'n'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 4])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 4])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00049}00049\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 3;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00050}00050\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00051}00051\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00052}00052\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'t'}\ \&\&\ (i\ +\ 4\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'a'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'n'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 4])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 4])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00055}00055\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 3;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00056}00056\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00057}00057\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00058}00058\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'a'}\ \&\&\ (i\ +\ 5\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'c'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'o'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'s'}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ str[i\ +\ 4]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 5])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 5])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 4;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00063}00063\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00064}00064\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00065}00065\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'a'}\ \&\&\ (i\ +\ 5\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'s'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'i'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'n'}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ str[i\ +\ 4]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 5])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 5])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00069}00069\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 4;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00070}00070\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00071}00071\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00072}00072\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'a'}\ \&\&\ (i\ +\ 5\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'t'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'a'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'n'}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ str[i\ +\ 4]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 5])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 5])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00076}00076\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ 4;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00077}00077\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00078}00078\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00079}00079\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'s'}\ \&\&\ (i\ +\ 5\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'q'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'r'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'t'}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ str[i\ +\ 4]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 5])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 5])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00083}00083\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 4;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00084}00084\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00085}00085\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00086}00086\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'l'}\ \&\&\ (i\ +\ 3\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'n'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 3])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 3])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00089}00089\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00090}00090\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00091}00091\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00092}00092\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'l'}\ \&\&\ (i\ +\ 4\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00093}00093\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'o'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'g'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 4])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 4])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00095}00095\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 3;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00096}00096\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00097}00097\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00098}00098\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'m'}\ \&\&\ (i\ +\ 3\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'o'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'d'}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 3])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 3])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00101}00101\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 3;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00102}00102\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00103}00103\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00105}00105\ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00106}00106\ \}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00107}00107\ \textcolor{comment}{///\ @brief\ трансормация\ строки\ в\ нормальное\ значение}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00108}00108\ \textcolor{comment}{///\ @param\ str\ строка}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00109}00109\ \textcolor{comment}{///\ @param\ i\ позиция\ в\ строке}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00110}00110\ \textcolor{comment}{///\ @return\ возвращаем\ одну\ чар\ которая\ заменяет}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00111}\mbox{\hyperlink{classs21_1_1_model_calc_a1c41f28b0a2046049d9aa2a4fc3ff650}{00111}}\ \textcolor{comment}{}\textcolor{keywordtype}{char}\ \mbox{\hyperlink{classs21_1_1_model_calc_a1c41f28b0a2046049d9aa2a4fc3ff650}{s21::ModelCalc::str\_to\_correct\_str}}(std::string\ \&str,\ \textcolor{keywordtype}{size\_t}\ i)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00112}00112\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'c'}\ \&\&\ (i\ +\ 4\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'o'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'s'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 4])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 4])))\ \{\ \textcolor{comment}{//\ замена\ всех\ стрсшр\ на\ стд}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'c'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00116}00116\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00117}00117\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00118}00118\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'s'}\ \&\&\ (i\ +\ 4\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00119}00119\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'i'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'n'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 4])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 4])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00121}00121\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'s'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00122}00122\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00123}00123\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00124}00124\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'t'}\ \&\&\ (i\ +\ 4\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'a'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'n'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 4])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 4])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00127}00127\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'t'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00128}00128\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00129}00129\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00130}00130\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'a'}\ \&\&\ (i\ +\ 5\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00131}00131\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'c'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'o'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'s'}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ str[i\ +\ 4]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 5])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 5])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00134}00134\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'C'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00135}00135\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00136}00136\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00137}00137\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'a'}\ \&\&\ (i\ +\ 5\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00138}00138\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'s'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'i'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'n'}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ str[i\ +\ 4]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 5])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 5])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00141}00141\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'S'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00142}00142\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00143}00143\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00144}00144\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'a'}\ \&\&\ (i\ +\ 5\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'t'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'a'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'n'}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ str[i\ +\ 4]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 5])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 5])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00148}00148\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'T'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00149}00149\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00150}00150\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00151}00151\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'s'}\ \&\&\ (i\ +\ 5\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00152}00152\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'q'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'r'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'t'}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ str[i\ +\ 4]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 5])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 5])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00155}00155\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'K'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00156}00156\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00157}00157\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00158}00158\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'l'}\ \&\&\ (i\ +\ 3\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00159}00159\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'n'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 3])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 3])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00161}00161\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'l'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00162}00162\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00163}00163\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00164}00164\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'l'}\ \&\&\ (i\ +\ 4\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00165}00165\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'o'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'g'}\ \&\&\ str[i\ +\ 3]\ ==\ \textcolor{charliteral}{'('}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00166}00166\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 4])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 4])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00167}00167\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'L'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00168}00168\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00169}00169\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00170}00170\ \ \ \textcolor{keywordflow}{if}\ (str[i]\ ==\ \textcolor{charliteral}{'m'}\ \&\&\ (i\ +\ 3\ <\ str.length()))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00171}00171\ \ \ \ \ \textcolor{keywordflow}{if}\ (str[i\ +\ 1]\ ==\ \textcolor{charliteral}{'o'}\ \&\&\ str[i\ +\ 2]\ ==\ \textcolor{charliteral}{'d'}\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ (std::strchr(\mbox{\hyperlink{s21__model__calc_8h_a5a741f23d3fa4888f76d84f85f3107eb}{SIGN\_SYM}},\ str[i\ +\ 3])\ ||\ std::strchr(\mbox{\hyperlink{s21__model__calc_8h_ac31ec0e85c1f70d912ab94d8ea25fc31}{OPER\_LET}},\ str[i\ +\ 3])))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00173}00173\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ \textcolor{charliteral}{'\%'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00174}00174\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00175}00175\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00176}00176\ \ \ \textcolor{keywordflow}{if}\ ((str[i]\ ==\ \textcolor{charliteral}{'-\/'}\ \&\&\ i\ ==\ 0)\ ||}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00177}00177\ \ \ \ \ \ \ (i\ >\ 0\ \&\&\ str[i]\ ==\ \textcolor{charliteral}{'-\/'}\ \&\&\ str[i\ -\/\ 1]\ ==\ \textcolor{charliteral}{'('}))\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00178}00178\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\string~'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00179}00179\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00180}00180\ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00181}00181\ \}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00182}00182\ \textcolor{comment}{///\ @brief\ подготовка\ строки}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00183}00183\ \textcolor{comment}{///\ @param\ str1\ текущая\ строка}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00184}00184\ \textcolor{comment}{///\ @param\ str2\ строка\ после\ преобразования}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00185}\mbox{\hyperlink{classs21_1_1_model_calc_a1234d822861489714bcfb5db264656e9}{00185}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{classs21_1_1_model_calc_a1234d822861489714bcfb5db264656e9}{s21::ModelCalc::prepare\_str}}(std::string\ str1,\ std::string\ \&str2)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00186}00186\ \ \ \textcolor{keywordtype}{char}\ value;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00187}00187\ \ \ \textcolor{keywordflow}{for}\ (std::string::size\_type\ i\ =\ 0;\ i\ <\ str1.size();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00188}00188\ \ \ \ \ value\ =\ str\_to\_correct\_str(str1,\ i);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00189}00189\ \ \ \ \ \textcolor{keywordflow}{if}\ (value)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00190}00190\ \ \ \ \ \ \ str2.push\_back(value);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00191}00191\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{charliteral}{'c'})\ i\ =\ i\ +\ 2;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00192}00192\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{charliteral}{'s'})\ i\ =\ i\ +\ 2;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00193}00193\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{charliteral}{'t'})\ i\ =\ i\ +\ 2;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00194}00194\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{charliteral}{'C'})\ i\ =\ i\ +\ 3;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00195}00195\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{charliteral}{'S'})\ i\ =\ i\ +\ 3;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00196}00196\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{charliteral}{'T'})\ i\ =\ i\ +\ 3;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00197}00197\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{charliteral}{'K'})\ i\ =\ i\ +\ 3;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00198}00198\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{charliteral}{'l'})\ i++;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00199}00199\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{charliteral}{'L'})\ i\ =\ i\ +\ 2;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00200}00200\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (value\ ==\ \textcolor{charliteral}{'\%'})\ i\ =\ i\ +\ 2;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00201}00201\ \ \ \ \ \ \ value\ =\ 0;\ \textcolor{comment}{//\ >>>}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00202}00202\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00203}00203\ \ \ \ \ \ \ str2.push\_back(str1[i]);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00204}00204\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00205}00205\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00206}00206\ \textcolor{comment}{//\ \ str2[j]\ =\ '\(\backslash\)0';}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00207}00207\ \}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00208}00208\ \textcolor{comment}{///\ @brief\ парсер}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00209}00209\ \textcolor{comment}{///\ @param\ stroka\ строка\ }}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00210}00210\ \textcolor{comment}{///\ @param\ x\ обычный\ х}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00211}00211\ \textcolor{comment}{///\ @param\ stack\_\ стэк}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00212}\mbox{\hyperlink{classs21_1_1_model_calc_a72c47c376023fb8510d803eeef79a47b}{00212}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{classs21_1_1_model_calc_a72c47c376023fb8510d803eeef79a47b}{s21::ModelCalc::parser}}(std::string\ stroka,\ \textcolor{keywordtype}{double}\ x,\ std::stack<s21::Nodevalue>\ \&stack\_)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00213}00213\ \ \ \ \ \ \ \mbox{\hyperlink{classs21_1_1_model_calc_a493fc7f883c942805534656268beb79b}{s21::ModelCalc::string\_validator}}(stroka);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00214}00214\ \ \ \ \ \ \ \ \ std::string\ stroka2;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00215}00215\ \ \ \ \ \ \ \ \ prepare\_str(stroka,\ stroka2);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::string::size\_type\ i\ =\ 0;\ i\ <\ stroka2.length();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::strchr(\textcolor{stringliteral}{"{}0123456789"{}},\ stroka2[i]))\ \{\ \textcolor{comment}{//\ чет\ ругается}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ d\ =\ atof(\&stroka2[i]);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::string::size\_type\ k\ =\ i;\ std::strchr(\textcolor{stringliteral}{"{}.0123456789eE"{}},\ stroka2[i]);\ i++,\ k++)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\ \{d,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babaae943f711ea7d1a4724ccd3a7f2c21ee}{NUMBERS}},\ 1\}\ );}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'+'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\mbox{\hyperlink{structs21_1_1_nodevalue}{Nodevalue}}(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babab83498ad0d7694203035a6e12d65cc8f}{Plus}},\ 2\}));}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'-\/'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba54131b054736cae0dd9f4438ac44ecb0}{Minus}},\ 2\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'('})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba0d231608c3e2fd2571f9ebe74506d4eb}{Bracket\_0}},\ 1\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{')'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba6e9fbf285db47db859d8525172d4c092}{Bracket\_1}},\ 1\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'\string^'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba54cc8639b2ae32fad159203ab1b7aa4a}{Pow}},\ 4\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'/'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babae6fac012a9b23f2f87d8094e349e4418}{Div}},\ 3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'*'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babad1a89d2811b2de2dd196b698721391d6}{Mul}},\ 3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'L'})\ \{\ \ \textcolor{comment}{//\ деятичный\ логарифм}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba089fe3c8ed633fc44cb2e73b17af84ec}{Log}},\ 3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'l'})\ \{\ \ \textcolor{comment}{//\ обычный\ логарифм}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba05e01fc80da2f90f6685604e5354de95}{Ln}},\ 3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'c'})\ \{\ \ \textcolor{comment}{//\ cos}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babac2dce1668fa917e2c23ef641a406044d}{Cos}},\ 3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'C'})\ \{\ \ \textcolor{comment}{//\ acos}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba694853224b77987b86c277227e3ea961}{ACos}},\ 3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'s'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba945ca84f0cf6d5f725264a980b939a9c}{Sin}},\ 3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'S'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babaa95164704516f0a1e3601aeb625e1b56}{ASin}},3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'t'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babab492a96cd2b9bb37c81b8451a42889d9}{Tan}},\ 3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'T'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba39e78ace5fbadbd95ed64c9cd0189176}{Atan}},\ 3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'K'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba98095238a325acc3b59341ba5367172d}{Sqrt}},\ 3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'x'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{x,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba58833a3110c570fb05130d40c365d1e4}{X}},\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'\string~'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babaac7ec57a9c84861b144fb36998d78dc6}{Umin}},\ 4\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'!'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babae252e672b7da91ea35f8397b934075f5}{Umax}},\ 4\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stroka2[i]\ ==\ \textcolor{charliteral}{'\%'})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_.push(\{0,\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba6546ce90be941002573cf06b712d2c6b}{MOOD}},\ 3\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00286}00286\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00287}00287\ \}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00288}00288\ \textcolor{comment}{///\ @brief\ перевод\ в\ польскую\ нотацию}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00289}00289\ \textcolor{comment}{///\ @param\ stack\_\ стэк}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00290}\mbox{\hyperlink{classs21_1_1_model_calc_a66c54f469ce94d4cf591c4beae1e1ab5}{00290}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{classs21_1_1_model_calc_a66c54f469ce94d4cf591c4beae1e1ab5}{s21::ModelCalc::polish}}(std::stack<Nodevalue>\ \&stack\_)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00291}00291\ \ \ std::stack<Nodevalue>\ revese\_head;\ \textcolor{comment}{//\ реверсный\ где\ будем\ раздирать}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00292}00292\ \ \ std::stack<Nodevalue>\ stack\_for\_pop;\ \textcolor{comment}{//\ знаки\ и\ числа}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00293}00293\ \ \ std::stack<Nodevalue>\ stack\_result;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00294}00294\ \ \ \textcolor{keywordflow}{while}(stack\_.size()\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00295}00295\ \ \ \ \ \ \ \ \ revese\_head.push(stack\_.top());\ \textcolor{comment}{//\ надо\ проверить\ будет}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00296}00296\ \ \ \ \ \ \ \ \ stack\_.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00297}00297\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00299}00299\ }
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00300}00300\ \ \ \textcolor{keywordflow}{while}\ (revese\_head.size()!=0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00301}00301\ \ \ \ \ \textcolor{keywordflow}{if}\ (revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babaae943f711ea7d1a4724ccd3a7f2c21ee}{NUMBERS}}\ ||\ revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba58833a3110c570fb05130d40c365d1e4}{X}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00302}00302\ \ \ \ \ \ \ \ \ stack\_result.push(\{revese\_head.top().number,\ revese\_head.top().codeOfValue,\ revese\_head.top().priority\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00303}00303\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (revese\_head.top().codeOfValue\ !=\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babaae943f711ea7d1a4724ccd3a7f2c21ee}{NUMBERS}}\ ||}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00304}00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ revese\_head.top().codeOfValue\ !=\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba58833a3110c570fb05130d40c365d1e4}{X}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00305}00305\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack\_for\_pop.size()\ ==\ 0)\ \{\ \textcolor{comment}{//\ а\ нахуя\ я\ это\ делал??\ работает\ кекв}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00306}00306\ \ \ \ \ \ \ \ \ stack\_for\_pop.push(\{revese\_head.top().number,\ revese\_head.top().codeOfValue,\ revese\_head.top().priority\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00307}00307\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (revese\_head.top().codeOfValue)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00308}00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba945ca84f0cf6d5f725264a980b939a9c}{Sin}}\ ||}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babaa95164704516f0a1e3601aeb625e1b56}{ASin}}\ ||}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babac2dce1668fa917e2c23ef641a406044d}{Cos}}\ ||}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba694853224b77987b86c277227e3ea961}{ACos}}\ ||}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ \ \ revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babab492a96cd2b9bb37c81b8451a42889d9}{Tan}}\ ||}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ \ \ revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba39e78ace5fbadbd95ed64c9cd0189176}{Atan}}\ ||}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ \ \ revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba05e01fc80da2f90f6685604e5354de95}{Ln}}\ ||\ revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba089fe3c8ed633fc44cb2e73b17af84ec}{Log}}\ ||}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \ revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba98095238a325acc3b59341ba5367172d}{Sqrt}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ stack\_for\_pop.push(\{revese\_head.top().number,\ revese\_head.top().codeOfValue,\ revese\_head.top().priority\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00317}00317\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba0d231608c3e2fd2571f9ebe74506d4eb}{Bracket\_0}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00318}00318\ \ \ \ \ \ \ \ \ \ \ stack\_for\_pop.push(\{revese\_head.top().number,\ revese\_head.top().codeOfValue,\ revese\_head.top().priority\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00319}00319\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (revese\_head.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba6e9fbf285db47db859d8525172d4c092}{Bracket\_1}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (stack\_for\_pop.size()\ !=\ 0\ \&\&}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stack\_for\_pop.top().codeOfValue\ !=\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba0d231608c3e2fd2571f9ebe74506d4eb}{Bracket\_0}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stack\_result.push(\{stack\_for\_pop.top().number,\ stack\_for\_pop.top().codeOfValue,\ stack\_for\_pop.top().priority\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00324}00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stack\_for\_pop.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00325}00325\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00326}00326\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_for\_pop.pop();\ \textcolor{comment}{//\ выкидываем\ скобочку}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(stack\_for\_pop.size()\ !=\ 0\ \&\&\ stack\_for\_pop.top().priority\ >=\ revese\_head.top().priority)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00329}00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stack\_result.push(stack\_for\_pop.top());}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stack\_for\_pop.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_for\_pop.push(\{revese\_head.top().number,\ revese\_head.top().codeOfValue,\ revese\_head.top().priority\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00334}00334\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00335}00335\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00336}00336\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00337}00337\ \ \ \ \ revese\_head.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00338}00338\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00339}00339\ \ \ \textcolor{keywordflow}{while}\ (stack\_for\_pop.size()\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00340}00340\ \ \ \ \ stack\_result.push(stack\_for\_pop.top());}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00341}00341\ \ \ \ \ stack\_for\_pop.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00342}00342\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00343}00343\ \ \ \ \ \textcolor{keywordflow}{while}(stack\_result.size()\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00344}00344\ \ \ \ \ \ \ \ \ stack\_.push(stack\_result.top());\ \textcolor{comment}{//\ надо\ проверить\ будет}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00345}00345\ \ \ \ \ \ \ \ \ stack\_result.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00346}00346\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00347}00347\ \}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00348}00348\ \textcolor{comment}{///\ @brief\ калькулятор}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00349}00349\ \textcolor{comment}{///\ @param\ str\ строка}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00350}00350\ \textcolor{comment}{///\ @param\ result\_new\ результат\ вычислений\ }}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00351}00351\ \textcolor{comment}{///\ @param\ x\ икс}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00352}00352\ \textcolor{comment}{///\ @return\ }}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00353}\mbox{\hyperlink{classs21_1_1_model_calc_aad6aa2a1d1087ce64061b98147fbc6d5}{00353}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{classs21_1_1_model_calc_aad6aa2a1d1087ce64061b98147fbc6d5}{s21::ModelCalc::calculator}}(std::string\ str,\ \textcolor{keywordtype}{double}\ *result\_new,\ \textcolor{keywordtype}{double}\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00354}00354\ \ \ \mbox{\hyperlink{classs21_1_1_model_calc}{s21::ModelCalc}}\ f;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00355}00355\ \ \ std::stack<s21::Nodevalue>\ stack;\ }
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00356}00356\ \ \ f.\mbox{\hyperlink{classs21_1_1_model_calc_a72c47c376023fb8510d803eeef79a47b}{parser}}(str,\ x,\ stack);\ \textcolor{comment}{//\ блок\ трай\ кетч}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00357}00357\ \ \ f.\mbox{\hyperlink{classs21_1_1_model_calc_a66c54f469ce94d4cf591c4beae1e1ab5}{polish}}(stack);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00358}00358\ \ \ \textcolor{keywordtype}{double}\ result\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00359}00359\ \ \ std::stack<s21::Nodevalue>\ stack\_for\_operation;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00360}00360\ \ \ std::stack<s21::Nodevalue>\ stack\_for\_numbers;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00361}00361\ \ \ \ \ \textcolor{keywordflow}{while}\ (stack.size()\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00362}00362\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babaae943f711ea7d1a4724ccd3a7f2c21ee}{NUMBERS}}\ ||\ stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba58833a3110c570fb05130d40c365d1e4}{X}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00363}00363\ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(stack.top());}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00364}00364\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ !=\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babaae943f711ea7d1a4724ccd3a7f2c21ee}{NUMBERS}}\ ||\ stack.top().codeOfValue\ !=\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba58833a3110c570fb05130d40c365d1e4}{X}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00365}00365\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babab83498ad0d7694203035a6e12d65cc8f}{Plus}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ b\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00370}00370\ \ \ \ \ \ \ \ \ \ \ result\ =\ a\ +\ b;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00372}00372\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00373}00373\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba54131b054736cae0dd9f4438ac44ecb0}{Minus}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00376}00376\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ b\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00377}00377\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ result\ =\ b\ -\/\ a;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00380}00380\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00381}00381\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babad1a89d2811b2de2dd196b698721391d6}{Mul}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00382}00382\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00383}00383\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ b\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ result\ =\ b\ *\ a;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00388}00388\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00389}00389\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babae6fac012a9b23f2f87d8094e349e4418}{Div}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ b\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ b\ /\ a;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}del\ in\ 0"{}});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00400}00400\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00401}00401\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba54cc8639b2ae32fad159203ab1b7aa4a}{Pow}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ b\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ result\ =\ pow(b,\ a);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00408}00408\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00409}00409\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba945ca84f0cf6d5f725264a980b939a9c}{Sin}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ result\ =\ sin(a);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00414}00414\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00415}00415\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babaa95164704516f0a1e3601aeb625e1b56}{ASin}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ result\ =\ asin(a);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00420}00420\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00421}00421\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babac2dce1668fa917e2c23ef641a406044d}{Cos}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00422}00422\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00423}00423\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00424}00424\ \ \ \ \ \ \ \ \ \ \ result\ =\ cos(a);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00425}00425\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00426}00426\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00427}00427\ }
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00428}00428\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba694853224b77987b86c277227e3ea961}{ACos}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ result\ =\ acos(a);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00433}00433\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00434}00434\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babab492a96cd2b9bb37c81b8451a42889d9}{Tan}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00435}00435\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00436}00436\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ result\ =\ tan(a);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00438}00438\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00439}00439\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00440}00440\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba39e78ace5fbadbd95ed64c9cd0189176}{Atan}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00441}00441\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00443}00443\ \ \ \ \ \ \ \ \ \ \ result\ =\ atan(a);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00444}00444\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00445}00445\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00446}00446\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba089fe3c8ed633fc44cb2e73b17af84ec}{Log}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00447}00447\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00448}00448\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00449}00449\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00450}00450\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ log10(a);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00451}00451\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00452}00452\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00453}00453\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}-\/\ in\ log"{}});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00454}00454\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00455}00455\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00456}00456\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba05e01fc80da2f90f6685604e5354de95}{Ln}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00457}00457\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00458}00458\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00459}00459\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ log(a);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00461}00461\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00462}00462\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00463}00463\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}-\/\ in\ ln"{}});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00465}00465\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00466}00466\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba98095238a325acc3b59341ba5367172d}{Sqrt}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00467}00467\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00468}00468\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00469}00469\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00470}00470\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ sqrt(a);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00471}00471\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00472}00472\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00473}00473\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}-\/\ in\ sqrt"{}});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00474}00474\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00475}00475\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00476}00476\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2baba6546ce90be941002573cf06b712d2c6b}{MOOD}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00477}00477\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00478}00478\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00479}00479\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ b\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00480}00480\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00481}00481\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (a\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00482}00482\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ fmod(b,\ a);}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00483}00483\ \ \ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00484}00484\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00485}00485\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00486}00486\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.top().codeOfValue\ ==\ \mbox{\hyperlink{s21__model__calc_8h_a91c63a982b995448dd564763945e2babaac7ec57a9c84861b144fb36998d78dc6}{Umin}})\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00487}00487\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00488}00488\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ result\ =\ a\ *\ -\/1;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ stack\_for\_numbers.push(\{result,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00491}00491\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00492}00492\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00493}00493\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stack.size()\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00494}00494\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00495}00495\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00496}00496\ \ \ \ \ \ \ stack.pop();}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00497}00497\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00498}00498\ \ \ \ \ \textcolor{keywordflow}{if}\ (stack\_for\_numbers.size()\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00499}00499\ \ \ \ \ \ \ *result\_new\ =\ stack\_for\_numbers.top().number;}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00500}00500\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00501}00501\ \}}
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00502}00502\ }
+\DoxyCodeLine{\Hypertarget{s21__model__calc_8cpp_source_l00503}00503\ }
+
+\end{DoxyCode}

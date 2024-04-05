@@ -1,0 +1,38 @@
+\doxysection{s21\+\_\+credit\+\_\+cacl.\+cpp}
+\hypertarget{s21__credit__cacl_8cpp_source}{}\label{s21__credit__cacl_8cpp_source}\index{Model/s21\_credit\_cacl.cpp@{Model/s21\_credit\_cacl.cpp}}
+\mbox{\hyperlink{s21__credit__cacl_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{s21__model__calc_8h}{s21\_model\_calc.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00003}00003\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00004}00004\ \textcolor{comment}{///\ @brief\ аннуитетный\ кредитный\ калькулятор}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00005}00005\ \textcolor{comment}{///\ @param\ sum\ сумма\ кредита}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00006}00006\ \textcolor{comment}{///\ @param\ persent\ процент\ кредита}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00007}00007\ \textcolor{comment}{///\ @param\ time\ время\ кредита}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00008}00008\ \textcolor{comment}{///\ @param\ result\ возвращаемое\ значени\ суммы\ выплаты}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00009}\mbox{\hyperlink{classs21_1_1_model_calc_ad770787ebff458778c4a9034da6204da}{00009}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{classs21_1_1_model_calc_ad770787ebff458778c4a9034da6204da}{s21::ModelCalc::s21\_credit\_calc\_anu}}(\textcolor{keywordtype}{double}\ sum,\ \textcolor{keywordtype}{double}\ persent,\ \textcolor{keywordtype}{int}\ time,\ \textcolor{keywordtype}{double}\ *result)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00010}00010\ \ \ \textcolor{keywordtype}{double}\ koif\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00011}00011\ \ \ \textcolor{keywordtype}{double}\ i\ =\ persent\ /\ 1200;}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00012}00012\ \ \ koif\ =\ i\ *\ pow((1\ +\ i),\ time)\ /\ (pow((1\ +\ i),\ time)\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00013}00013\ \ \ *result\ =\ koif\ *\ sum;}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00014}00014\ \}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00015}00015\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00016}00016\ \textcolor{comment}{///\ @brief\ дифферциальный\ калькулятор\ }}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00017}00017\ \textcolor{comment}{///\ @param\ sum\ сумма\ кредита}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00018}00018\ \textcolor{comment}{///\ @param\ persent\ процент\ кредита}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00019}00019\ \textcolor{comment}{///\ @param\ time\ время}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00020}00020\ \textcolor{comment}{///\ @param\ result\ возвращаемое\ значение\ суммы}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00021}00021\ \textcolor{comment}{///\ @param\ result2\ результат\ функции\ два\ аннуитетный\ процента}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00022}00022\ \textcolor{comment}{///\ @param\ result\_persent\ суммарный\ процент\ }}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00023}\mbox{\hyperlink{classs21_1_1_model_calc_a5379970edbc25d913a58e5d68446f906}{00023}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{classs21_1_1_model_calc_a5379970edbc25d913a58e5d68446f906}{s21::ModelCalc::s21\_credit\_calc\_diff}}(\textcolor{keywordtype}{double}\ sum,\ \textcolor{keywordtype}{double}\ persent,\ \textcolor{keywordtype}{int}\ time,\ \textcolor{keywordtype}{double}\ *result,}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *result2,\ \textcolor{keywordtype}{double}\ *result\_persent)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00025}00025\ \ \ \textcolor{keywordtype}{double}\ month\_pay\ =\ sum\ /\ time;}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00026}00026\ \ \ *result\ =\ month\_pay\ +\ sum\ *\ persent\ /\ 1200;}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00027}00027\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ time;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00028}00028\ \ \ \ \ *result\_persent\ +=\ sum\ *\ persent\ /\ 1200;}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00029}00029\ \ \ \ \ *result2\ =\ sum\ *\ persent\ /\ 1200\ +\ month\_pay;}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00030}00030\ \ \ \ \ sum\ -\/=\ month\_pay;}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00031}00031\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{s21__credit__cacl_8cpp_source_l00032}00032\ \}}
+
+\end{DoxyCode}
